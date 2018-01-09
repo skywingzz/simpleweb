@@ -28,5 +28,6 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-web-services')
 	compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+	compile("com.amazonaws:aws-java-sdk-dynamodb:1.11.259")
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
