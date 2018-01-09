@@ -25,7 +25,6 @@ repositories {
 
 dependencies {
 	compile('org.apache.cxf:cxf-spring-boot-starter-jaxrs:3.1.11')
-	compile('org.springframework.boot:spring-boot-starter-parent')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-web-services')
 	compile("org.springframework.boot:spring-boot-starter-thymeleaf")
