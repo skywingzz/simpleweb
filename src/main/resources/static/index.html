@@ -3,8 +3,16 @@
 <head>
     <title>Getting Started: Cloud9 Sample</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script type="text/javascript">
+        
+        function insert() {
+            document.location.href = '/insert?name=' + document.getElementById('name').value;
+        }
+    </script>
 </head>
 <body>
-<p>Go Cloud9 <a href="/hello">here</a></p>
+    What is your name : <input type="text" id="name"/>
+    <p><button onclick="insert()">Insert</button></p>
+
 </body>
 </html>

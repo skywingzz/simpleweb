@@ -2,12 +2,16 @@ package com.simple.simpleweb;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
-import com.amazonaws.services.dynamodbv2.document.*;
-import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
+import com.amazonaws.services.dynamodbv2.document.DynamoDB;
+import com.amazonaws.services.dynamodbv2.document.Item;
+import com.amazonaws.services.dynamodbv2.document.Table;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Controller
 public class SimpleController {
@@ -16,28 +20,21 @@ public class SimpleController {
     static DynamoDB dynamoDB = new DynamoDB(client);
     static String tableName = "simpleTable";
 
-    @RequestMapping("/hello")
-    public String hello(@RequestParam(value="name", required=false, defaultValue="Cloud 9 !!") String name, Model model) {
-        model.addAttribute("name", name);
+    @RequestMapping("/insert")
+    public String insert(@RequestParam(value="name", required=false, defaultValue="Cloud 9 !!") String name, Model model) {
+        
+        Date d = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        int currentDate = Integer.parseInt(sdf.format(d));
 
         Table table = dynamoDB.getTable(tableName);
-        Item item = new Item().withPrimaryKey("memNo", "1000")
-                    .withInt("Name", "skywing");
+        Item item = new Item().withPrimaryKey("name", name)
+                            .withInt("createDate", currentDate);
+
         table.putItem(item);
 
+        model.addAttribute("name", name);
         return "hello";
     }
 
-    @RequestMapping("/list")
-    public String list(Model model) {
-        Table table = dynamoDB.getTable(tableName);
-
-        QuerySpec spec = new QuerySpec()
-                .withConsistentRead(true);
-
-        ItemCollection<QueryOutcome> items = table.query(spec);
-                System.out.println(items.toString());
-
-        return "list";
-    }
 }
