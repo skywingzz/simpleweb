@@ -29,7 +29,7 @@ public class SimpleController {
 
         Table table = dynamoDB.getTable(tableName);
         Item item = new Item().withPrimaryKey("name", name)
-                            .withInt("createDate", currentDate);
+                            .withString("createDate", currentDate);
 
         table.putItem(item);
 
